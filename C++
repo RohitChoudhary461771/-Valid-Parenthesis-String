@@ -1,0 +1,29 @@
+class Solution {
+public:
+    bool checkValidString(string s) {
+        stack<int>brack;
+        stack<int>star;
+        for(int i=0;i<s.size();i++){
+            if(s[i]=='('){
+                brack.push(i);
+                // cout<<brack<<" ";
+                }
+            else if(s[i]=='*'){
+                star.push(i);
+                // cout<<star<<" ";
+            }
+            else{
+                if(!brack.empty())brack.pop();
+                else if(!star.empty())star.pop();
+                else{
+                    return false;
+                }
+            }
+        }
+        while(!brack.empty() && !star.empty()){
+            if(brack.top()>star.top())return false;
+            brack.pop(),star.pop();
+        }
+        return brack.empty();
+    }
+};
